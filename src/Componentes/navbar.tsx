@@ -21,9 +21,9 @@ export function Navbar() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }}>
+                                <Link className="nav-link" to="/inicio" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }}>
                                     Inicio
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 
