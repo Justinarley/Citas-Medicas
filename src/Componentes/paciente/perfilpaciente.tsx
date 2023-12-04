@@ -56,14 +56,18 @@ export function PerfilPaciente() {
       });
 
       if (response.ok) {
-        console.log(`Datos del paciente con CI ${ci} actualizados exitosamente`);
+        alert(`Datos del paciente con CI: ${ci} actualizados exitosamente`);
         setPaciente({ ...editPaciente });
       } else {
-        console.error(`Error al intentar actualizar los datos del paciente con CI ${ci}`);
+        alert(`Error al intentar actualizar los datos del paciente con CI: ${ci}`);
       }
     } catch (error) {
       console.error('Error en la conexión:', error);
     }
+  };
+  const formatLabel = (key: string) => {
+    const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
+    return formattedKey.replace(/([a-z])([A-Z])/g, '$1 $2');
   };
 
   return (
@@ -71,27 +75,35 @@ export function PerfilPaciente() {
       <Navbar />
       <div className="container">
         <h2>Perfil del Paciente</h2>
-        <table className="table">
-          <tbody>
-            {Object.entries(editPaciente).map(([key, value]) => (
-              <tr key={key}>
-                <td>{key}:</td>
-                <td>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={value !== null ? value : ''}
-                    onChange={(e) => handleInputChange(key, e.target.value)}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button className="btn btn-primary" onClick={guardarCambios}>
-          Guardar cambios
-        </button>
+        <form>
+          <table className="table">
+            <tbody>
+              {Object.entries(editPaciente).map(([key, value]) => (
+                <tr key={key}>
+                  <td>
+                    <label htmlFor={key} className="form-label">
+                      {formatLabel(key)}:
+                    </label>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id={key}
+                      value={value !== null ? value : ''}
+                      onChange={(e) => handleInputChange(key, e.target.value)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button type="button" className="btn btn-primary" onClick={guardarCambios}>
+            Guardar cambios
+          </button>
+        </form>
       </div>
     </>
   );
+  
 }

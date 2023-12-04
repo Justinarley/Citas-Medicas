@@ -1,7 +1,9 @@
 import { Navbar } from "../navbar";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function FormularioPaciente() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     CI: '',
     NombrePaciente: '',
@@ -36,6 +38,17 @@ export function FormularioPaciente() {
       if (response.ok) {
         // Manejar la respuesta exitosa
         alert('Registro exitoso');
+        setFormData({
+          CI: '',
+          NombrePaciente: '',
+          ApellidoPaciente: '',
+          Telefono: '',
+          Direccion: '',
+          CorreoElectronico: '',
+          FechaNacimiento: '',
+          AntecedentesMedicos: '',
+        });
+        navigate('/tablapacientes');
       } else {
         // Manejar errores
         console.error('Error en el registro');

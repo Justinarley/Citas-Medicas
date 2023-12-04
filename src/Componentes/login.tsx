@@ -20,7 +20,7 @@ export function Login() {
       });
 
       if (response.ok) {
-        console.log('Inicio de sesión exitoso');
+        alert('Inicio de sesión exitoso');
         navigate('/inicio');
       } else {
         alert('Credenciales inválidas');
