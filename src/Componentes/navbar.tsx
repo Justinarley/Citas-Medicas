@@ -46,6 +46,11 @@ export function Navbar() {
                                     Doctores
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/citas" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }}>
+                                    Citas
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import { TablaDoctores } from "./Componentes/doctores/tabladoctores";
 import { TablaPaciente } from "./Componentes/paciente/tablapacientes";
 import { Inicio } from "./Componentes/inicio";
 import { PerfilPaciente } from "./Componentes/paciente/perfilpaciente"; // Asegúrate de importar el componente
+import { Citas } from "./Componentes/cita";
 
 export const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRoutes = () => {
       <Route path="/tabladoctores" element={<TablaDoctores />} />
       <Route path="/tablapacientes" element={<TablaPaciente />} />
       <Route path="/perfil-paciente/:ci" element={<PerfilPaciente />} />
+      <Route path="/citas" element={<Citas />} />
     </Routes>
   );
 };
