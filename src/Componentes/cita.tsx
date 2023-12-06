@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { Navbar } from "./navbar";
-
 
 export function Citas() {
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [cedula, setCedula] = useState('');
   const [pacienteData, setPacienteData] = useState({
     ci: '',
@@ -14,7 +12,8 @@ export function Citas() {
     telefono: '',
     correoelectronico: '',
   });
-  const [] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
 
   const handleSearch = async () => {
     try {
@@ -35,6 +34,46 @@ export function Citas() {
     }
   };
 
+  const handleSaveCita = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/guardar-cita', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pacienteCI: pacienteData.ci,
+          fechaHora: `${selectedDate} ${selectedTime}`,
+          nombrepaciente: pacienteData.nombrepaciente,
+          apellidopaciente: pacienteData.apellidopaciente
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Cita guardada exitosamente. ID:', data.citaId);
+        setSuccessMessage('Cita guardada exitosamente.');
+        // Limpiar campos
+        setCedula('');
+        setPacienteData({
+          ci: '',
+          nombrepaciente: '',
+          apellidopaciente: '',
+          telefono: '',
+          correoelectronico: '',
+        });
+        setSelectedDate('');
+        setSelectedTime('');
+      } else {
+        console.error('Error al guardar la cita:', response.statusText);
+        setError('Error al guardar la cita. Inténtalo de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error al guardar la cita:', error);
+      setError('Error al guardar la cita. Inténtalo de nuevo.');
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -48,8 +87,11 @@ export function Citas() {
               value={cedula}
               onChange={(e) => setCedula(e.target.value)}
             />
-            <button className="btn btn-primary mt-2" onClick={handleSearch}>Buscar</button>
+            <button className="btn btn-primary mt-2" onClick={handleSearch}>
+              Buscar
+            </button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
             {pacienteData.ci && (
               <table className="table mt-4">
                 <thead>
@@ -75,8 +117,20 @@ export function Citas() {
           </div>
           <div className="col-md-6">
             <div className="mt-6">
-              <h3>Seleccione una fecha con hora:</h3>
-              <Calendar />
+              <h3>Seleccione una fecha y hora:</h3>
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+              />
+              <input
+                type="time"
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+              />
+              <button className="btn btn-primary mt-2" onClick={handleSaveCita}>
+                Guardar Cita
+              </button>
             </div>
           </div>
         </div>
