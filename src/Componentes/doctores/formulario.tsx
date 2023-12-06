@@ -49,6 +49,13 @@ export function FormularioMedico() {
             console.error('Error en la conexión:', error);
         }
     };
+    const handleEspecialidadChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { id, value } = e.target;
+        setFormData({
+            ...formData,
+            [id]: value,
+        });
+    };
 
     return(
         <>
@@ -107,16 +114,18 @@ export function FormularioMedico() {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="especialidad">Especialidad:</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        id="especialidad"
-                                        placeholder="Ingrese la especialidad del médico"
-                                        value={formData.especialidad}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
+                                        <label htmlFor="especialidad">Especialidad:</label>
+                                        <select
+                                            className="form-control"
+                                            id="especialidad"
+                                            value={formData.especialidad}
+                                            onChange={handleEspecialidadChange}
+                                        >
+                                            <option value="odontologia">Odontología</option>
+                                            <option value="cirugia">Cirugía</option>
+                                            <option value="medicina_general">Medicina General</option>
+                                        </select>
+                                    </div>
                                 <div className="form-group text-center">
                                     <button type="submit" className="btn btn-success">
                                         Guardar

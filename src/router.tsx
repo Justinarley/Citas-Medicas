@@ -5,7 +5,7 @@ import { FormularioMedico } from "./Componentes/doctores/formulario";
 import { TablaDoctores } from "./Componentes/doctores/tabladoctores";
 import { TablaPaciente } from "./Componentes/paciente/tablapacientes";
 import { Inicio } from "./Componentes/inicio";
-import { PerfilPaciente } from "./Componentes/paciente/perfilpaciente"; // Asegúrate de importar el componente
+import { PerfilPaciente } from "./Componentes/paciente/perfilpaciente";
 import { Citas } from "./Componentes/cita";
 import { PerfilDoctor } from "./Componentes/doctores/perfildoctor";
 

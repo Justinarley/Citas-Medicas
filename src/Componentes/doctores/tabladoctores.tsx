@@ -67,7 +67,7 @@ export function TablaDoctores() {
         <thead className="thead-dark text-center">
           <tr>
             <th>ID del Doctor</th>
-            <th>Cédula</th> {/* Nuevo campo */}
+            <th>Cédula</th> 
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Teléfono</th>
@@ -80,7 +80,7 @@ export function TablaDoctores() {
             {doctores.map((doctor) => (
               <tr key={doctor.iddoctor}>
                 <td>{doctor.iddoctor}</td>
-                <td>{doctor.cedula}</td> {/* Nuevo campo */}
+                <td>{doctor.cedula}</td> 
                 <td>{doctor.nombre}</td>
                 <td>{doctor.apellidos}</td>
                 <td>{doctor.telefono}</td>
@@ -98,7 +98,6 @@ export function TablaDoctores() {
                   </a>
                 </td>
                 <td>
-                  {/* Cambiar el enlace a un botón y llamar a eliminarDoctor */}
                   <button
                     onClick={() => eliminarDoctor(doctor.iddoctor)}
                     className="btn btn-link"
