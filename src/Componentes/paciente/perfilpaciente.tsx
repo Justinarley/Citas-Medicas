@@ -20,6 +20,7 @@ export function PerfilPaciente() {
 
   useEffect(() => {
     if (!isDataLoaded.current) {
+      // eslint-disable-next-line no-inner-declarations
       async function obtenerDetallesPaciente() {
         try {
           const response = await fetch(`http://localhost:3000/lista-pacientes/${ci}`);
@@ -36,7 +37,7 @@ export function PerfilPaciente() {
           console.error('Error en la conexión:', error);
         }
       }
-
+          
       obtenerDetallesPaciente();
     }
   }, [ci]);
