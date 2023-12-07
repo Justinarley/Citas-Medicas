@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Navbar } from "./navbar";
+import { useState, useEffect } from 'react';
+import { Navbar } from './navbar';
+import { useNavigate } from 'react-router-dom';
 
 export function Citas() {
+  const navigate = useNavigate();
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [cedula, setCedula] = useState('');
@@ -14,6 +16,34 @@ export function Citas() {
   });
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+  const [doctores, setDoctores] = useState([]);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  type Doctor = {
+    iddoctor: number;
+    cedula: string;
+    nombre: string;
+    apellidos: string;
+    telefono: string;
+    especialidad: string;
+  };
+
+  useEffect(() => {
+    async function obtenerDoctores() {
+      try {
+        const response = await fetch('http://localhost:3000/lista-doctores');
+        if (response.ok) {
+          const data = await response.json();
+          setDoctores(data);
+        } else {
+          console.error('Error al obtener la lista de doctores');
+        }
+      } catch (error) {
+        console.error('Error en la conexión:', error);
+      }
+    }
+
+    obtenerDoctores();
+  }, []);
 
   const handleSearch = async () => {
     try {
@@ -36,6 +66,18 @@ export function Citas() {
 
   const handleSaveCita = async () => {
     try {
+      if (!cedula || !selectedDate || !selectedTime || !selectedDoctor) {
+        setError('Por favor, complete todos los campos antes de guardar la cita.');
+        return;
+      }
+      const {
+        iddoctor,
+        nombre,
+        apellidos,
+        cedula: doctorcedula,
+        especialidad: doctorespecialidad,
+      } = selectedDoctor;
+
       const response = await fetch('http://localhost:3000/guardar-cita', {
         method: 'POST',
         headers: {
@@ -45,7 +87,12 @@ export function Citas() {
           pacienteCI: pacienteData.ci,
           fechaHora: `${selectedDate} ${selectedTime}`,
           nombrepaciente: pacienteData.nombrepaciente,
-          apellidopaciente: pacienteData.apellidopaciente
+          apellidopaciente: pacienteData.apellidopaciente,
+          doctornombre: nombre,
+          doctorapellidos: apellidos,
+          doctorcedula,
+          doctoriddoctor: iddoctor,
+          doctorespecialidad,
         }),
       });
 
@@ -53,7 +100,6 @@ export function Citas() {
         const data = await response.json();
         console.log('Cita guardada exitosamente. ID:', data.citaId);
         setSuccessMessage('Cita guardada exitosamente.');
-        // Limpiar campos
         setCedula('');
         setPacienteData({
           ci: '',
@@ -64,6 +110,9 @@ export function Citas() {
         });
         setSelectedDate('');
         setSelectedTime('');
+        setSelectedDoctor(null);
+        setError('');
+        navigate('/calendario');
       } else {
         console.error('Error al guardar la cita:', response.statusText);
         setError('Error al guardar la cita. Inténtalo de nuevo.');
@@ -72,6 +121,10 @@ export function Citas() {
       console.error('Error al guardar la cita:', error);
       setError('Error al guardar la cita. Inténtalo de nuevo.');
     }
+  };
+
+  const handleSelectDoctor = (doctor: Doctor) => {
+    setSelectedDoctor(doctor);
   };
 
   return (
@@ -128,10 +181,37 @@ export function Citas() {
                 value={selectedTime}
                 onChange={(e) => setSelectedTime(e.target.value)}
               />
-              <button className="btn btn-primary mt-2" onClick={handleSaveCita}>
-                Guardar Cita
-              </button>
             </div>
+          </div>
+        </div>
+
+        <div className="row mt-4">
+          <div className="col-md-12">
+            <label>Seleccione un doctor:</label>
+            <select
+              className="form-control"
+              value={selectedDoctor?.iddoctor || ''}
+              onChange={(e) => {
+                const selectedId = parseInt(e.target.value, 10);
+                const selected = doctores.find((doctor: Doctor) => doctor.iddoctor === selectedId);
+
+                if (selected) {
+                  handleSelectDoctor(selected);
+                }
+              }}
+            >
+              <option value="">Seleccionar doctor...</option>
+              {doctores.map((doctor: Doctor) => (
+                <option key={doctor.iddoctor} value={doctor.iddoctor}>
+                  {doctor.nombre} {doctor.apellidos} - {doctor.especialidad}
+                </option>
+              ))}
+            </select>
+            <button className="btn btn-primary mt-2" onClick={handleSaveCita}>
+              Guardar Cita
+            </button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
           </div>
         </div>
       </div>

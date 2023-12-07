@@ -8,6 +8,7 @@ import { Inicio } from "./Componentes/inicio";
 import { PerfilPaciente } from "./Componentes/paciente/perfilpaciente";
 import { Citas } from "./Componentes/cita";
 import { PerfilDoctor } from "./Componentes/doctores/perfildoctor";
+import { Calendario } from "./Componentes/calendario";
 
 export const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
       <Route path="/tablapacientes" element={<TablaPaciente />} />
       <Route path="/perfil-paciente/:ci" element={<PerfilPaciente />} />
       <Route path="/citas" element={<Citas />} />
+      <Route path="/calendario" element={<Calendario />} />
       <Route path="/perfil-doctor/:iddoctor" element={<PerfilDoctor />} />
     </Routes>
   );

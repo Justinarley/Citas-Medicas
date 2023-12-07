@@ -52,11 +52,11 @@ export function FormularioMedico() {
     const handleEspecialidadChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { id, value } = e.target;
         setFormData({
-            ...formData,
-            [id]: value,
+          ...formData,
+          [id]: value,
         });
-    };
-
+      };
+    
     return(
         <>
         <Navbar />
@@ -121,9 +121,9 @@ export function FormularioMedico() {
                                             value={formData.especialidad}
                                             onChange={handleEspecialidadChange}
                                         >
-                                            <option value="odontologia">Odontología</option>
-                                            <option value="cirugia">Cirugía</option>
-                                            <option value="medicina_general">Medicina General</option>
+                                            <option value="Odontologia">Odontología</option>
+                                            <option value="Cirugia">Cirugía</option>
+                                            <option value="Medicina_general">Medicina General</option>
                                         </select>
                                     </div>
                                 <div className="form-group text-center">

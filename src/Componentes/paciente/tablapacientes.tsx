@@ -5,14 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 export function TablaPaciente() {
   const navigate = useNavigate();
-    // Define el tipo de un paciente
+
     type Paciente = {
         ci: string;
         nombrepaciente: string;
         apellidopaciente: string;
         telefono: string;
         correoelectronico: string;
-        // ... otras propiedades ...
     };
 
     const [pacientes, setPacientes] = useState<Paciente[]>([]);
@@ -71,7 +70,6 @@ export function TablaPaciente() {
                             <th>Apellido</th>
                             <th>Teléfono</th>
                             <th>Correo Electrónico</th>
-                            {/* ... otras columnas ... */}
                             <th>+</th>
                             <th>Eliminar</th>
                         </tr>
@@ -84,7 +82,6 @@ export function TablaPaciente() {
                                 <td>{paciente.apellidopaciente}</td>
                                 <td>{paciente.telefono}</td>
                                 <td>{paciente.correoelectronico}</td>
-                                {/* ... otras columnas ... */}
                                 <td>
                                     <a
                                         href=""
@@ -98,7 +95,6 @@ export function TablaPaciente() {
                                     </a>
                                 </td>
                                 <td>
-                {/* Cambiar el enlace a un botón y llamar a eliminarPaciente */}
                                 <button
                                   onClick={() => eliminarPaciente(paciente.ci)}
                                   className="btn btn-link"

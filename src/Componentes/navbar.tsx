@@ -51,6 +51,16 @@ export function Navbar() {
                                     Citas
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/calendario" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }}>
+                                    Calendario
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }} to={''}>
+                                    Reporte de pacientes
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
