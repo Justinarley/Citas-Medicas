@@ -7,7 +7,7 @@ export function PerfilDoctor() {
   console.log('ID del doctor:', iddoctor);
   const [doctor, setDoctor] = useState({
     iddoctor: '',
-    cedula: '', // Nuevo campo
+    cedula: '',
     nombre: '',
     apellidos: '',
     telefono: '',
@@ -19,7 +19,6 @@ export function PerfilDoctor() {
 
   useEffect(() => {
     if (!isDataLoaded.current) {
-      // eslint-disable-next-line no-inner-declarations
       async function obtenerDetallesDoctor() {
         try {
           const response = await fetch(`http://localhost:3000/lista-doctores/${iddoctor}`);

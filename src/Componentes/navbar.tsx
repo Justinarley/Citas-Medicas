@@ -4,7 +4,7 @@ import Logo from '../assets/Imagenes/logo.png';
 export function Navbar() {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#87CEEB', fontStyle: 'italic' }}>
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#00BFFF', fontStyle: 'italic' }}>
                 <img src={Logo} style={{ width: '175px', height: '90px' }} alt="Logo de la clínica dental" />
                 <div className="container">
                     <button
@@ -54,11 +54,6 @@ export function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/calendario" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }}>
                                     Calendario
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" style={{ color: '#fff', fontWeight: 'bold', marginRight: '20px', borderBottom: '2px solid #fff' }} to={''}>
-                                    Reporte de pacientes
                                 </Link>
                             </li>
                         </ul>

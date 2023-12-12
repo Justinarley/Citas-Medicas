@@ -45,7 +45,7 @@ export function Calendario() {
     <>
       <Navbar />
       <div className="container">
-        <h2>Calendario de Citas</h2>
+        <h2 className=" text-center">Calendario de Citas</h2>
         <div className="row">
           {citas.map(cita => (
             <div key={cita.id} className="col-md-4 mb-4">
